@@ -1,0 +1,99 @@
+/* ============================================================
+   style-selection.css — Music Selection Page
+   ============================================================ */
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Keyframes (共通) ─────────────────────────────────────── */
+@keyframes rumble {
+  0%    { transform: rotate(0deg)    translate(0,     0);    }
+  12.5% { transform: rotate(0.4deg)  translate(1px,  -1px);  }
+  25%   { transform: rotate(0.8deg)  translate(0px,   1px);  }
+  37.5% { transform: rotate(0.4deg)  translate(-1px,  0);    }
+  50%   { transform: rotate(0deg)    translate(0,     0);    }
+  62.5% { transform: rotate(-0.4deg) translate(1px,   0);    }
+  75%   { transform: rotate(-0.8deg) translate(0,     1px);  }
+  87.5% { transform: rotate(-0.4deg) translate(-1px, -1px);  }
+  100%  { transform: rotate(0deg)    translate(0,     0);    }
+}
+
+/* ── Variables ────────────────────────────────────────────── */
+:root {
+  --color-text:   #212529;
+  --gap-images:   2rem;
+  --img-size:     200px;
+  --title-size:   clamp(2rem, 5vw, 4rem); /* レスポンシブフォント */
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 2rem;
+}
+
+/* ── Title ────────────────────────────────────────────────── */
+.title {
+  text-align: center;
+}
+
+.title h2 {
+  font-size: var(--title-size);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-text);
+  padding: 1rem 2rem;
+  user-select: none;
+  transition: all 0.3s;
+}
+
+/* ── Image Grid ───────────────────────────────────────────── */
+.images {
+  display: flex;
+  flex-wrap: wrap;                  /* 小さい画面で折り返し */
+  justify-content: center;
+  gap: var(--gap-images);
+}
+
+.images img {
+  width: var(--img-size);
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+/* ── Hover Effect ─────────────────────────────────────────── */
+.images img:hover {
+  animation: rumble 0.12s linear infinite;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+/* タブレット: 画像を少し拡大 */
+@media (min-width: 600px) {
+  :root {
+    --img-size: 180px;
+  }
+}
+
+/* デスクトップ: フルサイズ */
+@media (min-width: 1024px) {
+  :root {
+    --img-size: 200px;
+  }
+
+  .images {
+    flex-wrap: nowrap;
+  }
+}

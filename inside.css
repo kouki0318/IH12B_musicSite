@@ -1,0 +1,171 @@
+/* ============================================================
+   inside.css — Music Player Page
+   ============================================================ */
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Keyframes ────────────────────────────────────────────── */
+@keyframes rumble {
+  0%    { transform: rotate(0deg)    translate(0,     0);   }
+  12.5% { transform: rotate(0.4deg)  translate(1px,  -1px); }
+  25%   { transform: rotate(0.8deg)  translate(0px,   1px); }
+  37.5% { transform: rotate(0.4deg)  translate(-1px,  0);   }
+  50%   { transform: rotate(0deg)    translate(0,     0);   }
+  62.5% { transform: rotate(-0.4deg) translate(1px,   0);   }
+  75%   { transform: rotate(-0.8deg) translate(0,     1px); }
+  87.5% { transform: rotate(-0.4deg) translate(-1px, -1px); }
+  100%  { transform: rotate(0deg)    translate(0,     0);   }
+}
+
+/* ── Variables ────────────────────────────────────────────── */
+:root {
+  --color-bg:    #78e5e5;
+  --color-text:  #212529;
+  --record-size: clamp(120px, 38vh, 420px);
+  --logo-size:   clamp(80px, 10vw, 160px);
+  --btn-width:   clamp(160px, 25vw, 360px);
+  --btn-height:  clamp(44px, 7vh, 80px);
+  --title-size:  clamp(1.4rem, 2.5vw, 2.4rem);
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+html { font-size: 62.5%; }
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  overflow-x: hidden;
+}
+
+/* ── 3カラムレイアウト ────────────────────────────────────── */
+/*  [ record1 ]  [ center-panel ]  [ record2 ]  */
+.player-layout {
+  display: grid;
+  grid-template-columns: var(--record-size) 1fr var(--record-size);
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+/* ── レコード（左右） ─────────────────────────────────────── */
+.img_record {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ── 中央パネル ───────────────────────────────────────────── */
+.center-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* ── ロゴ ─────────────────────────────────────────────────── */
+.img_logo1 {
+  width: var(--logo-size);
+  height: auto;
+  display: block;
+}
+
+.img_logo1:hover {
+  animation: rumble 0.12s linear infinite;
+}
+
+/* ── タイトル ─────────────────────────────────────────────── */
+#title {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+#title h2 {
+  font-size: var(--title-size);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  white-space: nowrap;
+  position: relative; /* JSスクロールアニメーション用 */
+}
+
+/* ── ボタン共通 ───────────────────────────────────────────── */
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2rem;
+  user-select: none;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+}
+
+button.btn:hover {
+  animation: rumble 0.12s linear infinite;
+}
+
+/* ── 再生ボタン ───────────────────────────────────────────── */
+.a_play {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#play, #play2, #play3 {
+  width: var(--btn-width);
+  height: var(--btn-height);
+}
+
+/* ── 音量ボタン ───────────────────────────────────────────── */
+.a_volume {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+#volume-up,
+#volume-down {
+  width: calc(var(--btn-width) / 2 - 0.5rem);
+  height: var(--btn-height);
+}
+
+/* ── ミュートボタン ───────────────────────────────────────── */
+.a_mute {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#mute {
+  width: var(--btn-width);
+  height: var(--btn-height);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .player-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    padding: 1rem;
+  }
+
+  .img_record {
+    width: clamp(120px, 50vw, 200px);
+    margin: 0 auto;
+  }
+}
